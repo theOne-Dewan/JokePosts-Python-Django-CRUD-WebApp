@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<body lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class = box1>
+        <div class="heading">
+            <h1>Welcome {{current_user.first_name}} {{current_user.last_name}}!</h1>
+        </div> 
+        <div class="anchorNav">
+            <h5><a class= "navLink" href="/edit/{{current_user.id}}">Edit My Account</a>  <a class = "logout" href="/logout/{{current_user.id}}">Log Out</a></h5>
+        </div> 
+    </div>
+    <div class="container"> 
+        <div class="row">
+            <div class="col-sm-6">  
+                {% for quote in all_quotes %}
+                    <div class ="quoteBox">
+                        <strong>{{quote.author_name}}</strong>
+                        <em>"{{quote.quote}}"</em>
+                        <br>
+                        <br>
+                        <p>Published by: <a href="/user/{{quote.user.id}}/{{current_user.id}}">{{quote.user.first_name}} {{quote.user.last_name}}</a></p>
+                        <p>{{quote.likes}} people like this <a class="like" href="/likes/{{quote.id}}">Like</a> </p>
+
+                        {% if quote.user.id == current_user.id %}
+                            <p><a href="/delete_quote/{{quote.id}}">Delete Quote</a></p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class-col-sm-6">
+                <h1>Add a Quote</h1>
+                {% if messages %}
+                <ul>
+                    {% for m in messages %}
+                    <li class="text-danger">{{ m }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <form action="/add_quote" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="author">Author Full Name</label>
+                        <input type="text" name="author" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="quotes">Quote</label>
+                        <textarea name="quotes" class="form-control" rows="6"></textarea>
+                    </div>
+                    <input type="hidden" name="quote_id" value="{{current_user.id}}">
+                    <input type="submit" value="Add" class="btn btn-primary">
+                </form>
+            </div>
+        </div>     
+    </div>
+</body>
+</html>

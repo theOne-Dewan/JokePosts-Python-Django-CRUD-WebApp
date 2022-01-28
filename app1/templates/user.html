@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<body lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class = box1>
+        <div class="heading">
+            <h1>{{user.first_name}} {{user.last_name}}'s Quotes</h1>
+        </div> 
+        <div class="anchorNav">
+            <h5><a class= "navLink" href="/quotes">Go Back</a>  <a class = "logout" href="/logout/{{log.id}}">Log Out</a></h5>
+        </div> 
+    </div>
+    <div class="container"> 
+        <div class="row">
+            <div class="col-sm-6">  
+                {% for quote in user.quotes.all %}
+                    <div class ="quoteBox">
+                        <strong>{{quote.author_name}}</strong>
+                        <em>"{{quote.quote}}"</em>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>     
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<body lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Account</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class = box1>
+        <div class="heading">
+            <h1>Edit My Account</h1>
+        </div> 
+        <div class="anchorNav">
+            <h5><a class= "navLink" href="/quotes">Go Back</a>  <a class = "logout" href="/logout/{{edit_id.id}}">Log Out</a></h5>
+        </div> 
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">      
+                {% if messages %}
+                <ul>
+                    {% for m in messages %}
+                    <li class="text-danger">{{ m }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <form action="/update" method="POST">
+                    {%csrf_token %}
+                    <div class="form-group">
+                        <label for="first_name">First name</label>
+                        <input type="text" name="first_name" class="form-control" value="{{edit_id.first_name}}">
+                    </div> 
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" name="last_name" class="form-control" value="{{edit_id.last_name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" class="form-control" value="{{edit_id.email}}">
+                    </div>
+                    <input type="hidden" name="update_id" value="{{edit_id.id}}">
+                    <input type="submit" value="Update" class="btn btn-primary" >
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
