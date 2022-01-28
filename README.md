@@ -1,4 +1,4 @@
-# QuotePosts-Python-Django-CRUD-WebApp
+# Python Django CRUD WebApp
 
 This blog posting web app allows users to register and log into their accounts with full user authentication/verification via Bcrypt, then Creat-Read-Update-Delete posts. The backend server is run on and managed on the Django framework and the user/content data is stored on a SQLite server within the framework.
 
